@@ -602,23 +602,21 @@ def main():
 
         logger.info("Evaluate the following checkpoints: %s", checkpoints)
 
-        # for checkpoint in checkpoints:
-        #     # Reload the model
-        #     global_step = checkpoint.split("-")[-1] if len(checkpoints) > 1 else ""
-
-            # if args.model_type == 'bert-base':
-            #     model = Malay_QA('malay-huggingface/bert-base-bahasa-cased')
-            # elif args.model_type == 'bert-cool':
-            #     model = Malay_QA_COOL('malay-huggingface/bert-base-bahasa-cased')
-            # model = Malay_QA('malay-huggingface/bert-base-bahasa-cased')
-            # model.load_state_dict(torch.load(os.path.join(args.model_name_or_path,'pytorch_model.bin')))
-
-
+        for checkpoint in checkpoints:
+            # Reload the model
+            global_step = checkpoint.split("-")[-1] if len(checkpoints) > 1 else ""
+            model = Malay_QA('malay-huggingface/bert-base-bahasa-cased')
+            model.load_state_dict(torch.load(os.path.join(args.model_name_or_path,'pytorch_model.bin')))
+        
+        ## Evaluate a model released on HuggingFace
+        """
         global_step = ""
         from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 
         tokenizer = AutoTokenizer.from_pretrained("zhufy/squad-ms-bert-base")
         model = AutoModelForQuestionAnswering.from_pretrained("zhufy/squad-ms-bert-base")
+        """
+        
         model.cuda()
         # Evaluate
         result = evaluate(args, model, tokenizer, prefix=args.prefix)
