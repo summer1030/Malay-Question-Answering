@@ -602,6 +602,7 @@ def main():
 
         logger.info("Evaluate the following checkpoints: %s", checkpoints)
 
+        ## Evaluate saved models
         for checkpoint in checkpoints:
             # Reload the model
             global_step = checkpoint.split("-")[-1] if len(checkpoints) > 1 else ""
